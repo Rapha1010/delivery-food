@@ -3,6 +3,9 @@ package com.sage.entregacomida.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,55 +18,61 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sage.entregacomida.domain.entities.Cliente;
-import com.sage.entregacomida.repositories.ClienteRepository;
+import com.sage.entregacomida.dtos.ClienteDTO;
+import com.sage.entregacomida.modals.Cliente;
+import com.sage.entregacomida.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/api/clientes")
 public class ClienteController {
 	
 	@Autowired
-	public ClienteRepository clienteRepository;
+	public ClienteService clienteService;
 	
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll() {
-		List<Cliente> list = clienteRepository.findAll();
-		return ResponseEntity.ok().body(list);
+		List<Cliente> list = clienteService.findAll();
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Cliente> findById(@PathVariable Long id) {
-		Optional<Cliente> cliente = clienteRepository.findById(id);
-		return ResponseEntity.ok().body(cliente.get());
+	public ResponseEntity<Object> findById(@PathVariable Long id) {
+		Optional<Cliente> cliente = clienteService.findById(id);
+		if (!cliente.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cliente nao encontrado");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(cliente.get());
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cliente> save(@RequestBody Cliente obj) {
-		Cliente cliente = clienteRepository.save(obj);
-		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+	public ResponseEntity<Cliente> save(@RequestBody @Valid ClienteDTO obj) {
+		Cliente cliente = new Cliente();
+		BeanUtils.copyProperties(obj, cliente);
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(cliente));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Cliente> update(@RequestBody Cliente obj) {
-
-		Cliente cliente = clienteRepository.getReferenceById(obj.getId());
-		updataData(obj, cliente);
-		Cliente clienteSave = clienteRepository.save(cliente);
+	public ResponseEntity<Cliente> update(@RequestBody @Valid ClienteDTO obj) {
+		Optional<Cliente> clienteOptional = clienteService.findById(obj.getId());
+		if (!clienteOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 		
-		return ResponseEntity.ok().body(clienteSave);
-	}
+		Cliente cliente = new Cliente();
+		BeanUtils.copyProperties(obj, cliente);
+		cliente.setId(clienteOptional.get().getId());
 	
-	public void updataData(Cliente obj, Cliente cliente) {
-		cliente.setNome(obj.getNome());
-		cliente.setEmail(obj.getEmail());
-		cliente.setTelefone(obj.getTelefone());
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.save(cliente));
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cliente> update(@PathVariable Long id) {
-		Cliente cliente = clienteRepository.getReferenceById(id);
-		clienteRepository.delete(cliente);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> delete(@PathVariable Long id) {
+		Optional<Cliente> clienteOptional = clienteService.findById(id);
+		if (!clienteOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cliente nao encontrado");
+		}
+		clienteService.delete(clienteOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
