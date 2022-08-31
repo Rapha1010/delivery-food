@@ -1,10 +1,10 @@
-package com.sage.entregacomida;
+package com.sage.deliveryfood;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EntregaComidaApplicationTests {
+class DeliveryFoodApplicationTests {
 
 	@Test
 	void contextLoads() {

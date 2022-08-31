@@ -1,13 +1,13 @@
-package com.sage.entregacomida;
+package com.sage.deliveryfood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EntregaComidaApplication {
+public class DeliveryFoodApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EntregaComidaApplication.class, args);
+		SpringApplication.run(DeliveryFoodApplication.class, args);
 	}
 
 }

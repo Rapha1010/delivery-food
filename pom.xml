@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sage</groupId>
-	<artifactId>entrega-comida</artifactId>
+	<artifactId>delivery-food</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>entrega-comida</name>
-	<description>Implementação Rest</description>
+	<name>delivery-food</name>
+	<description>Rest Implementation</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
