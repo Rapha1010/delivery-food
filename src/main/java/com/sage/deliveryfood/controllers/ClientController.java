@@ -26,6 +26,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping(value = "/api/clients")
 public class ClientController {
@@ -35,7 +38,17 @@ public class ClientController {
 	
 	@GetMapping
 	public ResponseEntity<Page<ClientModel>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll(pageable));
+		
+		Page<ClientModel> client = clientService.findAll(pageable);
+		
+		if (!client.isEmpty()) {
+			
+			for (ClientModel clientModel : client) {
+				clientModel.add(linkTo(methodOn(ClientController.class).findById(clientModel.getId())).withSelfRel());
+			}
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(client);
 	}
 	
 	@GetMapping(value = "/{id}")

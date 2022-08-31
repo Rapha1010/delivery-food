@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.hateoas.RepresentationModel;
+
 @Entity
-public class ClientModel implements Serializable {
+public class ClientModel extends RepresentationModel<ClientModel> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
