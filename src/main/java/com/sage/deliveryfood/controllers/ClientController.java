@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sage.deliveryfood.dtos.request.ClientDTO;
-import com.sage.deliveryfood.modals.Client;
+import com.sage.deliveryfood.models.ClientModel;
 import com.sage.deliveryfood.services.ClientService;
 
 import org.springframework.data.domain.Page;
@@ -34,33 +34,33 @@ public class ClientController {
 	public ClientService clientService;
 	
 	@GetMapping
-	public ResponseEntity<Page<Client>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+	public ResponseEntity<Page<ClientModel>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll(pageable));
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Object> findById(@PathVariable UUID id) {
-		Client client = clientService.findById(id);
+		ClientModel client = clientService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(client);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Client> save(@RequestBody @Valid ClientDTO obj) {
-		Client client = new Client();
+	public ResponseEntity<ClientModel> save(@RequestBody @Valid ClientDTO obj) {
+		ClientModel client = new ClientModel();
 		BeanUtils.copyProperties(obj, client);
 		return ResponseEntity.status(HttpStatus.CREATED).body(clientService.save(client));
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Client> update(@PathVariable UUID id, @RequestBody @Valid ClientDTO obj) {
-		Client client = clientService.findById(id);
+	public ResponseEntity<ClientModel> update(@PathVariable UUID id, @RequestBody @Valid ClientDTO obj) {
+		ClientModel client = clientService.findById(id);
 		BeanUtils.copyProperties(obj, client,"id");
 		return ResponseEntity.status(HttpStatus.OK).body(clientService.save(client));
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable UUID id) {
-		Client client = clientService.findById(id);
+		ClientModel client = clientService.findById(id);
 		clientService.delete(client);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

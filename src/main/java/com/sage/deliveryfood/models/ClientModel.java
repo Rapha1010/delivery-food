@@ -1,4 +1,4 @@
-package com.sage.deliveryfood.modals;
+package com.sage.deliveryfood.models;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Client implements Serializable {
+public class ClientModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -24,9 +24,9 @@ public class Client implements Serializable {
 	private String email;
 	private Long phoneNumber;
 	
-	public Client() {}
+	public ClientModel() {}
 
-	public Client(String name, String email, Long phoneNumber) {
+	public ClientModel(String name, String email, Long phoneNumber) {
 		this.name = name;
 		this.email = email;
 		this.phoneNumber = phoneNumber;

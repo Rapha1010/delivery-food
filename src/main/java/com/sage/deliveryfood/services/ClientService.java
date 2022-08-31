@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sage.deliveryfood.exceptionhandler.ClientNotFoundException;
-import com.sage.deliveryfood.modals.Client;
+import com.sage.deliveryfood.models.ClientModel;
 import com.sage.deliveryfood.repositories.ClientRepository;
 
 @Service
@@ -19,16 +19,16 @@ public class ClientService {
 	@Autowired
 	public ClientRepository clientRepository; 
 	
-	public Page<Client> findAll(Pageable pageable) {
+	public Page<ClientModel> findAll(Pageable pageable) {
 		return clientRepository.findAll(pageable);
 	}
 
-	public Client findById(UUID id) {
-		Optional<Client> clienteOptional = clientRepository.findById(id);
+	public ClientModel findById(UUID id) {
+		Optional<ClientModel> clienteOptional = clientRepository.findById(id);
 		return clienteOptional.orElseThrow(() -> new ClientNotFoundException());
 	}
 
-	public Client save(Client client) {
+	public ClientModel save(ClientModel client) {
 		Long clienteNumber = clientRepository.maxClientNumber();
 		if (clienteNumber == null) clienteNumber = 1L; else clienteNumber++;
 		
@@ -36,7 +36,7 @@ public class ClientService {
 		return clientRepository.save(client);
 	}
 
-	public void delete(Client client) {
+	public void delete(ClientModel client) {
 		clientRepository.delete(client);
 	}
 
