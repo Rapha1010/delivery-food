@@ -40,9 +40,7 @@ public class ClientController {
 	public ResponseEntity<Page<ClientModel>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		
 		Page<ClientModel> client = clientService.findAll(pageable);
-		
 		if (!client.isEmpty()) {
-			
 			for (ClientModel clientModel : client) {
 				clientModel.add(linkTo(methodOn(ClientController.class).findById(clientModel.getId())).withSelfRel());
 			}
@@ -53,7 +51,7 @@ public class ClientController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Object> findById(@PathVariable UUID id) {
-		ClientModel client = clientService.findById(id);
+		ClientModel client = clientService.findById(id);		
 		return ResponseEntity.status(HttpStatus.OK).body(client);
 	}
 	

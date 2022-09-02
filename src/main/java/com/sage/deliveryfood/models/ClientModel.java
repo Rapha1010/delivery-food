@@ -1,16 +1,32 @@
 package com.sage.deliveryfood.models;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 @Entity
 public class ClientModel extends RepresentationModel<ClientModel> implements Serializable {
 	
@@ -20,59 +36,27 @@ public class ClientModel extends RepresentationModel<ClientModel> implements Ser
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
-	
+	@Column(nullable = false, length = 10)
 	private Long number;
+	@Column(nullable = false, length = 40)
 	private String name;
+	@Column(nullable = false, length = 40)
+	@Email
 	private String email;
+	@Column(nullable = false, length = 40)
 	private Long phoneNumber;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<OrderModel> orders;
+
+	public ClientModel(String name, @Email String email, Long phoneNumber) {
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
 	
 	public ClientModel() {}
-
-	public ClientModel(String name, String email, Long phoneNumber) {
-		this.name = name;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-	}
-
-	public Long getNumber() {
-		return number;
-	}
-
-	public void setNumber(Long number) {
-		this.number = number;
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return name;
-	}
-
-	public void setNome(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Long getTelefone() {
-		return phoneNumber;
-	}
-
-	public void setTelefone(Long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-
+	
+	
 }

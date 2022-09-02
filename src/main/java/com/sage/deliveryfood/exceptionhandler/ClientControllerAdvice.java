@@ -17,8 +17,15 @@ public class ClientControllerAdvice {
 	
 	@ResponseBody
 	@ExceptionHandler(ClientNotFoundException.class)
-	public ResponseEntity<MessageExceptionHandler> clienteNotFound(ClientNotFoundException productNotFound) {
+	public ResponseEntity<MessageExceptionHandler> clienteNotFound(ClientNotFoundException clientNotFound) {
 		MessageExceptionHandler error = new MessageExceptionHandler(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "client not found");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(OrderNotFoundException.class)
+	public ResponseEntity<MessageExceptionHandler> clienteNotFound(OrderNotFoundException orderNotFound) {
+		MessageExceptionHandler error = new MessageExceptionHandler(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "order not found");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
