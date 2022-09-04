@@ -19,14 +19,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "TB_USER")
 public class UserModel implements Serializable, UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", columnDefinition = "BINARY(16)")
+//	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	private String username;
 	private String userPassword;

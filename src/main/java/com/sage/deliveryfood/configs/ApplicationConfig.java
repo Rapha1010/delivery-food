@@ -57,7 +57,7 @@ public class ApplicationConfig implements CommandLineRunner  {
 		
 		UserModel user1 = new UserModel("raphael", ConfigSecurity.passwordEncoder().encode("123456"), roleList);
 		
-		userRepository.save(user1);
+		 //userRepository.save(user1);
 		
 		
 		ClientModel cliente1 = new ClientModel("Joao da Silva", "joao.silva@ibm.com",994618524L);

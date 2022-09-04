@@ -17,14 +17,14 @@ import org.springframework.security.core.GrantedAuthority;
 import com.sage.deliveryfood.enums.RoleName;
 
 @Entity
-@Table(name = "tb_role")
+@Table(name = "TB_ROLE")
 public class RoleModel implements GrantedAuthority, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", columnDefinition = "BINARY(16)")
+//	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	
 	@Enumerated(EnumType.STRING)

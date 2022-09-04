@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 import org.hibernate.annotations.Fetch;
@@ -28,13 +29,14 @@ import lombok.Setter;
 
 @Data
 @Entity
+@Table(name = "TB_CLIENT")
 public class ClientModel extends RepresentationModel<ClientModel> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", columnDefinition = "BINARY(16)")
+//	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	@Column(nullable = false, length = 10)
 	private Long number;

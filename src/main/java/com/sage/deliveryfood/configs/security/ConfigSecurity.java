@@ -15,7 +15,7 @@ public class ConfigSecurity {
 	protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.httpBasic()
 		.and().authorizeHttpRequests()
-		.antMatchers("/h2-console/**").permitAll()
+		.antMatchers("/h2-console/**").permitAll() 
 		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN","USER")
 		.antMatchers(HttpMethod.POST).hasRole("ADMIN")
 		.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
