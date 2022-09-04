@@ -17,15 +17,22 @@ public class ClientControllerAdvice {
 	
 	@ResponseBody
 	@ExceptionHandler(ClientNotFoundException.class)
-	public ResponseEntity<MessageExceptionHandler> clienteNotFound(ClientNotFoundException clientNotFound) {
+	public ResponseEntity<MessageExceptionHandler> clientNotFound(ClientNotFoundException clientNotFound) {
 		MessageExceptionHandler error = new MessageExceptionHandler(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "client not found");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
 	@ResponseBody
 	@ExceptionHandler(OrderNotFoundException.class)
-	public ResponseEntity<MessageExceptionHandler> clienteNotFound(OrderNotFoundException orderNotFound) {
+	public ResponseEntity<MessageExceptionHandler> orderNotFound(OrderNotFoundException orderNotFound) {
 		MessageExceptionHandler error = new MessageExceptionHandler(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "order not found");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(OrderItenNotFoundException.class)
+	public ResponseEntity<MessageExceptionHandler> orderItenNotFound(OrderItenNotFoundException orderItenNotFound) {
+		MessageExceptionHandler error = new MessageExceptionHandler(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "order iten not found");
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 	
