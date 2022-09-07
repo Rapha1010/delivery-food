@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.sage.deliveryfood.dtos.request.OrderItenDTO;
 import com.sage.deliveryfood.exceptionhandler.ClientNotFoundException;
 import com.sage.deliveryfood.exceptionhandler.OrderItenNotFoundException;
 import com.sage.deliveryfood.models.OrderItenModel;
@@ -35,12 +36,16 @@ public class OrderItenSevice {
 		return orderItenRepository.save(orderIten);
 	}
 	
-	public OrderItenModel update(UUID id, OrderItenModel obj) {
+	public OrderItenModel update(UUID id, OrderItenDTO obj) {
 		
 		OrderItenModel orderIten = findById(id);
 		
-		BeanUtils.copyProperties(obj, orderIten, "id");
+		System.out.println("1"+orderIten.getId());
 		
+		BeanUtils.copyProperties(obj, orderIten,"id");
+		
+		System.out.println("2"+orderIten.getId());
+	
 		orderIten.setUpdateDateTime(LocalDateTime.now(ZoneId.of("UTC")));
 		
 		return orderItenRepository.save(orderIten);

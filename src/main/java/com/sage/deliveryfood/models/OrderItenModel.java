@@ -26,7 +26,6 @@ public class OrderItenModel implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	@NotBlank
 	@Column(nullable  = false, length = 30)

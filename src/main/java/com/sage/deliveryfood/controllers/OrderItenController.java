@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sage.deliveryfood.dtos.request.OrderItenDTO;
 import com.sage.deliveryfood.models.OrderItenModel;
 import com.sage.deliveryfood.services.OrderItenSevice;
 
@@ -38,7 +39,7 @@ public class OrderItenController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public OrderItenModel update(@PathVariable UUID id, @RequestBody OrderItenModel obj) {
+	public OrderItenModel update(@PathVariable UUID id, @RequestBody @Valid OrderItenDTO obj) {
 		return orderItenService.update(id, obj);
 	}
 	
