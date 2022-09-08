@@ -10,10 +10,13 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.sage.deliveryfood.configs.security.ConfigSecurity;
 import com.sage.deliveryfood.enums.RoleName;
@@ -28,7 +31,7 @@ import com.sage.deliveryfood.repositories.UserRepository;
 import com.sage.deliveryfood.services.ClientService;
 import com.sage.deliveryfood.services.UserServiceImpl;
 @Configuration
-public class ApplicationConfig implements CommandLineRunner  {
+public class ApplicationConfig implements CommandLineRunner, WebMvcConfigurer  {
 	
 	@Autowired
 	public ClientService clientService;
@@ -41,6 +44,14 @@ public class ApplicationConfig implements CommandLineRunner  {
 	
 	@Autowired
 	public OrderRepository orderRepository;
+	
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedOrigins("http://127.0.0.1:5500")
+//        	.allowedOrigins("*")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
+    }
 
 	@Override
 	public void run(String... args) throws Exception {
