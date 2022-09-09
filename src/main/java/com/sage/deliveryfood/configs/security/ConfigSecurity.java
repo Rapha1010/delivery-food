@@ -14,16 +14,12 @@ public class ConfigSecurity {
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.httpBasic()
-		.and().authorizeHttpRequests()
-		.antMatchers("/h2-console/**").permitAll() 
+		.and().cors().and().authorizeHttpRequests()
 		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN","USER")
 		.antMatchers(HttpMethod.POST).hasRole("ADMIN")
 		.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
 		.antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-		.anyRequest().authenticated()
-		.and().csrf().disable();
-		
-		httpSecurity.headers().frameOptions().disable();
+		.anyRequest().authenticated().and().csrf().disable();
 		
 		return httpSecurity.build();
 	}
