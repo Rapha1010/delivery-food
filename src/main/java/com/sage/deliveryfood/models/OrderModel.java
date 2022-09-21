@@ -59,7 +59,7 @@ public class OrderModel implements Serializable {
 	
 //	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 //	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-//	private Set<OrderItenModel> orderItens;
+//	private Set<OrderItemModel> orderItens;
 
 	public OrderModel(@NotBlank String address, @NotNull Integer estimatedTimeInMin, LocalDateTime creationDateTime, LocalDateTime updateDateTime,
 			@NotNull StatusType status, ClientModel client) {

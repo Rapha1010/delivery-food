@@ -19,29 +19,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sage.deliveryfood.dtos.request.OrderItenDTO;
-import com.sage.deliveryfood.models.OrderItenModel;
+import com.sage.deliveryfood.models.OrderItemModel;
 import com.sage.deliveryfood.services.OrderItenSevice;
 
 @RestController
 @RequestMapping(value = "/api/itens")
 @CrossOrigin(origins = {"http://127.0.0.1:5500"}, maxAge = 3600)
-public class OrderItenController {
+public class OrderItemController {
 	
 	@Autowired
 	private OrderItenSevice orderItenService;
 	
 	@GetMapping
-	public List<OrderItenModel> findAll() {
+	public List<OrderItemModel> findAll() {
 		return orderItenService.findAll();
 	}
 	
 	@PostMapping
-	public OrderItenModel save(@RequestBody @Valid OrderItenModel obj) {
+	public OrderItemModel save(@RequestBody @Valid OrderItemModel obj) {
 		return orderItenService.save(obj);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public OrderItenModel update(@PathVariable UUID id, @RequestBody @Valid OrderItenDTO obj) {
+	public OrderItemModel update(@PathVariable UUID id, @RequestBody @Valid OrderItenDTO obj) {
 		return orderItenService.update(id, obj);
 	}
 	

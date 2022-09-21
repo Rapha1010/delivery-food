@@ -12,33 +12,33 @@ import org.springframework.stereotype.Service;
 import com.sage.deliveryfood.dtos.request.OrderItenDTO;
 import com.sage.deliveryfood.exceptionhandler.ClientNotFoundException;
 import com.sage.deliveryfood.exceptionhandler.OrderItenNotFoundException;
-import com.sage.deliveryfood.models.OrderItenModel;
-import com.sage.deliveryfood.repositories.OrderItenRepository;
+import com.sage.deliveryfood.models.OrderItemModel;
+import com.sage.deliveryfood.repositories.OrderItemRepository;
 
 @Service
 public class OrderItenSevice {
 	
-	private OrderItenRepository orderItenRepository;
+	private OrderItemRepository orderItemRepository;
 
-	public OrderItenSevice(OrderItenRepository orderItenRepository) {
-		this.orderItenRepository = orderItenRepository;
+	public OrderItenSevice(OrderItemRepository orderItemRepository) {
+		this.orderItemRepository = orderItemRepository;
 	}
 	
-	public List<OrderItenModel> findAll() {
-		return orderItenRepository.findAll();
+	public List<OrderItemModel> findAll() {
+		return orderItemRepository.findAll();
 	}
 	
-	public OrderItenModel save(OrderItenModel orderIten) {
+	public OrderItemModel save(OrderItemModel orderIten) {
 		
 		orderIten.setUpdateDateTime(LocalDateTime.now(ZoneId.of("UTC")));
 		orderIten.setCreationDateTime(LocalDateTime.now(ZoneId.of("UTC")));
 		
-		return orderItenRepository.save(orderIten);
+		return orderItemRepository.save(orderIten);
 	}
 	
-	public OrderItenModel update(UUID id, OrderItenDTO obj) {
+	public OrderItemModel update(UUID id, OrderItenDTO obj) {
 		
-		OrderItenModel orderIten = findById(id);
+		OrderItemModel orderIten = findById(id);
 		
 		System.out.println("1"+orderIten.getId());
 		
@@ -48,12 +48,12 @@ public class OrderItenSevice {
 	
 		orderIten.setUpdateDateTime(LocalDateTime.now(ZoneId.of("UTC")));
 		
-		return orderItenRepository.save(orderIten);
+		return orderItemRepository.save(orderIten);
 	}
 	
-	public OrderItenModel findById(UUID id) {
+	public OrderItemModel findById(UUID id) {
 		
-		Optional<OrderItenModel> orderItenOptional = orderItenRepository.findById(id);
+		Optional<OrderItemModel> orderItenOptional = orderItemRepository.findById(id);
 		
 		if (!orderItenOptional.isPresent()) {
 			return orderItenOptional.orElseThrow(() -> new OrderItenNotFoundException());
@@ -63,8 +63,8 @@ public class OrderItenSevice {
 		
 	}
 	
-	public void delete(OrderItenModel orderIten) {
-		 orderItenRepository.delete(orderIten);
+	public void delete(OrderItemModel orderIten) {
+		 orderItemRepository.delete(orderIten);
 	}
 
 }
