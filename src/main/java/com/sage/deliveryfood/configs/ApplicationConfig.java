@@ -108,15 +108,15 @@ public class ApplicationConfig implements CommandLineRunner, WebMvcConfigurer  {
 		
 		List<OrderItemModel> itemList = new ArrayList<OrderItemModel>();
 		
-		itemList.add(new OrderItemModel("Coca-cola Zero 350ml","refrigerante", 3.5,"/../img/itens/coca-zero-350-160x119.jpg",LocalDateTime.now(), LocalDateTime.now()));
-		itemList.add(new OrderItemModel("Guaraná Antartica 350ml","refrigerante", 3.5,"/../img/itens/guarana-antartica-350-160x160.png",LocalDateTime.now(), LocalDateTime.now()));
-		itemList.add(new OrderItemModel("Heineken 350ml","cerveja",3.5,"/../img/itens/heineken-350-160x160.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Coca-cola Zero 350ml","refrigerante", 3.5,"/img/itens/coca-zero-350-160x119.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Guaraná Antartica 350ml","refrigerante", 3.5,"/img/itens/guarana-antartica-350-160x160.png",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Heineken 350ml","cerveja",3.5,"/img/itens/heineken-350-160x160.jpg",LocalDateTime.now(), LocalDateTime.now()));
 
 		for (OrderItemModel itemModel : itemList) {
 //			if (!orderItemRepository.findByDescription(itemModel.getDescription()).isPresent()) {
 				orderItemRepository.save(itemModel);
 //			}
-		}     
+		}    
 
 		OrderModel order1 = new OrderModel("rua josé higino, 76",40, LocalDateTime.now(), LocalDateTime.now(),StatusType.PROCESSING, cliente1);
 //		/orderRepository.save(order1);
