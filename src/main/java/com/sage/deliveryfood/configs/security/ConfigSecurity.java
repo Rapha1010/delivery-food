@@ -15,7 +15,7 @@ public class ConfigSecurity {
 	protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.httpBasic()
 		.and().cors().and().authorizeHttpRequests()
-		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN","USER")
+		.antMatchers(HttpMethod.GET).permitAll()
 		.antMatchers(HttpMethod.POST).hasRole("ADMIN")
 		.antMatchers(HttpMethod.PUT).hasRole("ADMIN")
 		.antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
