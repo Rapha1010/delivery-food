@@ -80,7 +80,6 @@ public class ApplicationConfig implements CommandLineRunner, WebMvcConfigurer  {
 			userRepository.save(user1);
 		}
 		
-		
 		ClientModel cliente1 = new ClientModel("Joao da Silva", "joao.silva@ibm.com",994618524L);
 		ClientModel cliente2 = new ClientModel("Ana Maria", "ana.maria@ibm.com",994618522L);
 		ClientModel cliente3 = new ClientModel("Thiago Alves", "thiago.alves@ibm.com",994618523L);
@@ -108,18 +107,23 @@ public class ApplicationConfig implements CommandLineRunner, WebMvcConfigurer  {
 		
 		List<OrderItemModel> itemList = new ArrayList<OrderItemModel>();
 		
-		itemList.add(new OrderItemModel("Coca-cola Zero 350ml","refrigerante", 3.5,"/img/itens/coca-zero-350-160x119.jpg",LocalDateTime.now(), LocalDateTime.now()));
-		itemList.add(new OrderItemModel("Guaraná Antartica 350ml","refrigerante", 3.5,"/img/itens/guarana-antartica-350-160x160.png",LocalDateTime.now(), LocalDateTime.now()));
-		itemList.add(new OrderItemModel("Heineken 350ml","cerveja",3.5,"/img/itens/heineken-350-160x160.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Coca-cola Zero 350ml","refrigerante", 3.5,"coca-zero-350-160x119.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Guaraná Antartica 350ml","refrigerante", 3.5,"guarana-antartica-350-160x160.png",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Pepsi Pet 2 Litros","refrigerante", 8.5,"PepsiPet2Litros.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		
+		itemList.add(new OrderItemModel("Heineken 350ml","cerveja",3.5,"heineken-350-160x160.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Baden Baden Cristal 600ml","cerveja",11.9,"BadenBadenPilsenCristal.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Tcheca Pilsner Urquell 500ml","cerveja",26.9,"TchecaPilsnerUrq500ml.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		
+		itemList.add(new OrderItemModel("Chil Cu Caminos Car 750ml","vinho",32.9,"ChilenoCuCaminosCar750ml.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Chil Cabernet Sauvignon 750ml","vinho",23.1,"ChilCabernetSauvignon750ml.jpg",LocalDateTime.now(), LocalDateTime.now()));
+		itemList.add(new OrderItemModel("Tinto Arg Cabernet Sauvignon 750ml","vinho",39.9,"TintoArgCabernetSauvignon750ml.jpg",LocalDateTime.now(), LocalDateTime.now()));
 
 		for (OrderItemModel itemModel : itemList) {
-//			if (!orderItemRepository.findByDescription(itemModel.getDescription()).isPresent()) {
 				orderItemRepository.save(itemModel);
-//			}
-		}    
+		}
 
 		OrderModel order1 = new OrderModel("rua josé higino, 76",40, LocalDateTime.now(), LocalDateTime.now(),StatusType.PROCESSING, cliente1);
-//		/orderRepository.save(order1);
 		
 	}
 	

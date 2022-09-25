@@ -29,7 +29,7 @@ public class OrderItemModel implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	@NotBlank
-	@Column(nullable  = false, length = 30)
+	@Column(nullable  = false, length = 80)
 	private String description;
 	@Column(nullable  = false, length = 30)
 	private String category;
